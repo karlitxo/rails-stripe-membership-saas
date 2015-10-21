@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150408023212) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "payola_affiliates", force: :cascade do |t|
     t.string   "code"
     t.string   "email"
@@ -33,10 +30,10 @@ ActiveRecord::Schema.define(version: 20150408023212) do
   end
 
   create_table "payola_sales", force: :cascade do |t|
-    t.string   "email",                limit: 191
-    t.string   "guid",                 limit: 191
+    t.string   "email"
+    t.string   "guid"
     t.integer  "product_id"
-    t.string   "product_type",         limit: 100
+    t.string   "product_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state"
@@ -54,19 +51,19 @@ ActiveRecord::Schema.define(version: 20150408023212) do
     t.integer  "affiliate_id"
     t.text     "customer_address"
     t.text     "business_address"
-    t.string   "stripe_customer_id",   limit: 191
+    t.string   "stripe_customer_id"
     t.string   "currency"
     t.text     "signed_custom_fields"
     t.integer  "owner_id"
-    t.string   "owner_type",           limit: 100
+    t.string   "owner_type"
   end
 
-  add_index "payola_sales", ["coupon_id"], name: "index_payola_sales_on_coupon_id", using: :btree
-  add_index "payola_sales", ["email"], name: "index_payola_sales_on_email", using: :btree
-  add_index "payola_sales", ["guid"], name: "index_payola_sales_on_guid", using: :btree
-  add_index "payola_sales", ["owner_id", "owner_type"], name: "index_payola_sales_on_owner_id_and_owner_type", using: :btree
-  add_index "payola_sales", ["product_id", "product_type"], name: "index_payola_sales_on_product", using: :btree
-  add_index "payola_sales", ["stripe_customer_id"], name: "index_payola_sales_on_stripe_customer_id", using: :btree
+  add_index "payola_sales", ["coupon_id"], name: "index_payola_sales_on_coupon_id"
+  add_index "payola_sales", ["email"], name: "index_payola_sales_on_email"
+  add_index "payola_sales", ["guid"], name: "index_payola_sales_on_guid"
+  add_index "payola_sales", ["owner_id", "owner_type"], name: "index_payola_sales_on_owner_id_and_owner_type"
+  add_index "payola_sales", ["product_id", "product_type"], name: "index_payola_sales_on_product"
+  add_index "payola_sales", ["stripe_customer_id"], name: "index_payola_sales_on_stripe_customer_id"
 
   create_table "payola_stripe_webhooks", force: :cascade do |t|
     t.string   "stripe_id"
@@ -102,7 +99,7 @@ ActiveRecord::Schema.define(version: 20150408023212) do
     t.datetime "updated_at"
     t.string   "currency"
     t.integer  "amount"
-    t.string   "guid",                 limit: 191
+    t.string   "guid"
     t.string   "stripe_status"
     t.integer  "affiliate_id"
     t.string   "coupon"
@@ -112,7 +109,7 @@ ActiveRecord::Schema.define(version: 20150408023212) do
     t.integer  "setup_fee"
   end
 
-  add_index "payola_subscriptions", ["guid"], name: "index_payola_subscriptions_on_guid", using: :btree
+  add_index "payola_subscriptions", ["guid"], name: "index_payola_subscriptions_on_guid"
 
   create_table "plans", force: :cascade do |t|
     t.string   "name"
@@ -140,9 +137,8 @@ ActiveRecord::Schema.define(version: 20150408023212) do
     t.integer  "plan_id"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["plan_id"], name: "index_users_on_plan_id", using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["plan_id"], name: "index_users_on_plan_id"
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
-  add_foreign_key "users", "plans"
 end
